@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora </title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  .calculator {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .error {
+    color: red;
+  }
+</style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Calculadora </h2>
+    <input type="number" id="operand1" placeholder="Operando 1">
+    <select id="operator">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+    </select>
+    <input type="number" id="operand2" placeholder="Operando 2">
+    <button onclick="calculate()">Calcular</button>
+    <button onclick="clearFields()">Limpiar</button>
+    <p id="result">Resultado: </p>
+    <p class="error" id="error-message"></p>
+  </div>
+  
+  <script>
+    function calculate() {
+      const operand1 = parseFloat(document.getElementById("operand1").value);
+      const operand2 = parseFloat(document.getElementById("operand2").value);
+      const operator = document.getElementById("operator").value;
+      let result = 0;
+      const errorMessage = document.getElementById("error-message");
+
+      errorMessage.textContent = "";
+
+      if (isNaN(operand1) || isNaN(operand2)) {
+        errorMessage.textContent = "¡Operandos inválidos!";
+        return;
+      }
+
+      switch (operator) {
+        case "add":
+          result = operand1 + operand2;
+          break;
+        case "subtract":
+          result = operand1 - operand2;
+          break;
+        case "multiply":
+          result = operand1 * operand2;
+          break;
+        case "divide":
+          if (operand2 === 0) {
+            errorMessage.textContent = "¡No se puede dividir por cero!";
+            return;
+          }
+          result = operand1 / operand2;
+          break;
+      }
+
+      document.getElementById("result").textContent = "Resultado: " + result;
+    }
+
+    function clearFields() {
+      document.getElementById("operand1").value = "";
+      document.getElementById("operand2").value = "";
+      document.getElementById("result").textContent = "Resultado: ";
+      document.getElementById("error-message").textContent = "";
+    }
+  </script>
+</body>
+</html>
